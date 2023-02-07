@@ -6,4 +6,4 @@ const mongoose = require('mongoose');
   
   const db =mongoose.connection
 
-  db.on('open',()=>{console.log("success");})
+  db.on('open',()=>{console.log("success mongod");})
