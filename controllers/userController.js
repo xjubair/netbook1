@@ -40,11 +40,9 @@ module.exports.signIn = function (req,res) {
 }
 //session
 module.exports.createSession = function (req,res) {
-    console.log(req.body);
-   if(req.body.password !=req.body.confirm_password){
+    if(req.body.password !=req.body.confirm_password){
     return res.redirect('back')
    }
-
    User.findOne({email:req.body.email},function(err,user){
     if(err){
         console.log(error);
@@ -67,20 +65,5 @@ module.exports.createSession = function (req,res) {
 }
 //signInUser
 module.exports.signInUser = function (req,res) {
-    User.findOne({email:req.body.email},function(err,user){
-        if(err){
-            console.log(error);
-            return;
-        }
-        if(user){
-            if(user.password !=req.body.password){
-                return res.redirect('back')
-            }
-            res.cookie('user_id',user.id)
-            return res.redirect('/users/profile')
-        } else{
-            return res.redirect('back')
-        }
-        
-    })
+    
 }

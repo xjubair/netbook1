@@ -11,9 +11,18 @@ app.use(cookieParser())
 app.use(express.urlencoded())
 app.set('view engine','ejs')
 app.set('views','./views')
-
+var passport = require('passport');
+var session = require('express-session');
+const passportLocal = require('./config/passport-local-strategy')
 app.use(express.static('./assets'));
-
+app.use(session({
+  secret: 'password',
+  resave: false,
+  saveUninitialized: false,
+  cookie:{
+    maxAge:(1000*60*90)
+  }
+}));
 app.use(expressLayouts)
 app.set('layout extractStyles', true)
 app.set('layout extractScripts', true);
