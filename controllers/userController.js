@@ -65,5 +65,7 @@ module.exports.createSession = function (req,res) {
 }
 //signInUser
 module.exports.signInUser = function (req,res) {
+    return res.redirect('/');
+
     
 }

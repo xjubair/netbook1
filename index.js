@@ -23,6 +23,12 @@ app.use(session({
     maxAge:(1000*60*90)
   }
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
+
 app.use(expressLayouts)
 app.set('layout extractStyles', true)
 app.set('layout extractScripts', true);
