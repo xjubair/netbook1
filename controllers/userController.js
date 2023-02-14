@@ -1,31 +1,16 @@
 const User = require('../models/users')
 //profile 
 module.exports.profile = function (req,res) {
-    if(req.cookies.user_id){
-        User.findById(req.cookies.user_id,function(err,user){
-            if(err){
-                console.log(error);
-                return;
-            }
-            if(user){
-                return res.render('user_profile',{
-                    title:"User Profile",
-                    user:user
-                })
-            } else{
-                res.redirect('/users/sign-in')
-            }
-        })
-    }
-
-    // return res.render('user_profile',{
-    //     title:"User Profile"
-    // })
+    return res.render('user_profile',{
+        title:"User Profile"
+    })
 }
 
 //sign up
 module.exports.signUp = function (req,res) {
-    
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile')
+    }
     return res.render('signup',{
         title:"Signup"
     })
@@ -65,6 +50,18 @@ module.exports.createSession = function (req,res) {
 }
 //signInUser
 module.exports.signInUser = function (req,res) {
+    return res.redirect('/');
+
+    
+}
+
+//logout
+
+module.exports.logout = function (req,res,next) {
+    req.logout(function(err){
+        console.log(err);
+    });
+
     return res.redirect('/');
 
     

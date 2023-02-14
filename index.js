@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 
 const db = require('./config/mongoose')
-
+const MongoStore = require('connect-mongo');
 const router =require('./routes') 
 const expressLayouts = require('express-ejs-layouts');
 var cookieParser = require('cookie-parser')
@@ -21,7 +21,9 @@ app.use(session({
   saveUninitialized: false,
   cookie:{
     maxAge:(1000*60*90)
-  }
+  },
+  store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/netBook' })
+  // store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/connectmongosession' })
 }));
 
 app.use(passport.initialize());
