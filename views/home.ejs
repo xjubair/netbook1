@@ -1,1 +1,23 @@
 <h1>Netbook / <%= title %> </h1>
+
+<% if (locals.user){ %>
+<section>
+<h4>Create a Post</h4>
+
+<form action="/posts/create" method="post">
+    <textarea name="content" cols="30" rows="3" placeholder="type here.."></textarea>
+    <input type="submit" value="Post">
+
+</form>
+</section>
+<% } %>
+<div class="container">
+    <ul>
+        <% for(post of posts){%>
+        <li>
+            <p><b><%= post.content %></b></p>
+            <p><small><%= post.user.name %></small></p>
+        </li>
+        <% } %>
+    </ul>
+</div>

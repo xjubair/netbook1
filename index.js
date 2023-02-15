@@ -11,6 +11,7 @@ app.use(cookieParser())
 app.use(express.urlencoded())
 app.set('view engine','ejs')
 app.set('views','./views')
+// const sassMiddleware = require('node-sass-middleware');
 var passport = require('passport');
 var session = require('express-session');
 const passportLocal = require('./config/passport-local-strategy')
