@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: khaki;
   /* text-align: center; */ }
   body #layout-main {
     height: 100%; }
