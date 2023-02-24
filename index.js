@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
-
+const multer  = require('multer')
 const db = require('./config/mongoose')
 const MongoStore = require('connect-mongo');
 const router =require('./routes') 
@@ -11,11 +11,14 @@ app.use(cookieParser())
 app.use(express.urlencoded())
 app.set('view engine','ejs')
 app.set('views','./views')
+const flash = require('connect-flash');
+const customWare = require('./config/middleware');
 // const sassMiddleware = require('node-sass-middleware');
 var passport = require('passport');
 var session = require('express-session');
 const passportLocal = require('./config/passport-local-strategy')
 app.use(express.static('./assets'));
+app.use('/uploads',express.static(__dirname + '/uploads'));
 app.use(session({
   secret: 'password',
   resave: false,
@@ -31,7 +34,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
-
+app.use(flash());
+app.use(customWare.setFlash);
 app.use(expressLayouts)
 app.set('layout extractStyles', true)
 app.set('layout extractScripts', true);

@@ -14,10 +14,11 @@ module.exports.create = async function (req,res) {
                 })
                     post.comments.push(comment);
                     post.save()
+                    req.flash("success","comment published")
                     res.redirect('/');
                 }
     } catch (error) {
-        console.log(error);
+        req.flash("error","error")
         return;
     }
     }
@@ -33,10 +34,12 @@ module.exports.create = async function (req,res) {
             comment.remove();
     
            let post = await Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}})
+           req.flash("success","Comments Deleted !")
                 return res.redirect('/');
                 
             
         }else{
+            req.flash("error","unauthorised")
             return res.redirect('/');
         };
     

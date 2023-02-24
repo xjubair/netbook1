@@ -20,7 +20,7 @@ module.exports.home = async function (req,res) {
                 })
     } catch (error){
         console.log(error);
-        return
+        return;
     }
     // .exec(function(err,posts){
     //     User.find({},function (err,users) {
