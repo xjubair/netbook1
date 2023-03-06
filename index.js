@@ -17,6 +17,8 @@ const customWare = require('./config/middleware');
 var passport = require('passport');
 var session = require('express-session');
 const passportLocal = require('./config/passport-local-strategy')
+const passportJWT  = require("./config/passport-jwt-strategy")
+const passportGoogle = require('./config/password-google-oauth2-strategy')
 app.use(express.static('./assets'));
 app.use('/uploads',express.static(__dirname + '/uploads'));
 app.use(session({

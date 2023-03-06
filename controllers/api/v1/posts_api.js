@@ -17,12 +17,17 @@ module.exports.index = async function(req,res){
 }
 
 module.exports.destroy = async function(req,res){
-   let post = await Post.findById(req.params.id)
+    try {
+       let post = await Post.findById(req.params.id)
+    
+       post.remove();
+       await Comment.deleteMany({post:req.params.id})
+    
+       return res.json(200,{
+           message: "Post and Comments Deleted",
+       })
+   } catch (error) {
+        console.log(error);
+   }
 
-        post.remove();
-        await Comment.deleteMany({post:req.params.id})
- 
-        return res.json(200,{
-            message: "Post and Comments Deleted",
-        })
 }

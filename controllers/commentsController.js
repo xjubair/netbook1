@@ -1,5 +1,6 @@
 const Comment = require("../models/comments")
 const Post = require("../models/posts")
+const commentsMailer = require('../mailers/comments_mailer');
 
 
 module.exports.create = async function (req,res) {
@@ -15,6 +16,8 @@ module.exports.create = async function (req,res) {
                     post.comments.push(comment);
                     post.save()
                     req.flash("success","comment published")
+                    // commentsMailer.newComment(comment);
+                    console.log();
                     res.redirect('/');
                 }
     } catch (error) {
@@ -45,7 +48,7 @@ module.exports.create = async function (req,res) {
     
     } catch(error){
         console.log(error)
-        return;
+        return;
     }
 }
         
