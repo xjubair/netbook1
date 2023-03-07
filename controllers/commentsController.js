@@ -16,8 +16,17 @@ module.exports.create = async function (req,res) {
                     post.comments.push(comment);
                     post.save()
                     req.flash("success","comment published")
-                    // commentsMailer.newComment(comment);
-                    console.log();
+                    comment = await comment.populate('user', 'name email')
+                    commentsMailer.newComment(comment);
+                   
+                    if (req.xhr){
+                        return res.status(200).json({
+                            data: {
+                                comment: comment
+                            },
+                            message: "Post deleted"
+                        });
+                    }
                     res.redirect('/');
                 }
     } catch (error) {
