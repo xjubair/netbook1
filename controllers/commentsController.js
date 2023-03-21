@@ -1,6 +1,7 @@
 const Comment = require("../models/comments")
 const Post = require("../models/posts")
 const commentsMailer = require('../mailers/comments_mailer');
+const Like = require("../models/likes");
 
 
 module.exports.create = async function (req,res) {
@@ -46,6 +47,7 @@ module.exports.create = async function (req,res) {
             comment.remove();
     
            let post = await Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}})
+           await Like.deleteMany({likeable: comment._id, onModel: 'Comment'});
            req.flash("success","Comments Deleted !")
                 return res.redirect('/');
                 
