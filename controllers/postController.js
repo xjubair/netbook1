@@ -1,4 +1,5 @@
 const Comment = require("../models/comments");
+const Like = require("../models/likes");
 const Post = require("../models/posts")
 
 
